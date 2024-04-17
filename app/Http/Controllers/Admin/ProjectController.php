@@ -8,6 +8,7 @@ use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProjectController extends Controller
@@ -31,7 +32,7 @@ class ProjectController extends Controller
         $project = new Project;
         $types = Type::all();
         $technologies = Technology::orderBy('label')->get();
-        return view('admin.projects.show', compact('project', 'technologies'));
+        return view('admin.projects.create', compact('project', 'technologies'));
     }
 
     /**
@@ -49,8 +50,11 @@ class ProjectController extends Controller
                 'technologies.exists' => 'The technology in invalid',
             ]
         );
+
         $data = $request->all();
+        $img_path = Storage::put('uploads/projects', $data["image"]);
         $project = new Project;
+        $project->image = $img_path;
         $project->fill($data);
         $project->save();
         if (Arr::exists($data, "technologies"))

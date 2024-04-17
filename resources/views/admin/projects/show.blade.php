@@ -11,8 +11,11 @@
                 <img src="{{ $project->path_img }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ $project->title }}</h5>
+                    @if (!empty($project->image))
+                        <img src="{{ asset('storage/' . $project->image) }}" alt="">
+                    @endif
                     <p class="card-text">{{ $project->description }}</p>
-                    <p class="card-text">{{ $project->type->label }}</p>
+                    <!-- <p class="card-text"> $project->type->label }</p> -->
                     <p>Technologies:
                         @forelse ($project->technologies as $technology)
                             {{ $technology->label }} @unless ($loop->last)

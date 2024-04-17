@@ -11,8 +11,8 @@
             <form action="{{ route('admin.projects.store') }}" class="row g-3" method="project">
                 @csrf
                 <div class="col-12">
-                    <label class="form-label" for="img">Image</label>
-                    <input class="form-control" type="img" id="img" name="">
+                    <label class="form-label" for="image">Image</label>
+                    <input class="form-control" type="file" id="image" name="image">
                 </div>
                 <div class="col-12">
                     <label class="form-label" for="title">Project Name</label>
@@ -27,9 +27,10 @@
                     <label class="form-label" for="type_id">Type</label>
                     <select class="form-select" name="type_id" id="type_id">
                         <option value="">Select Type</option>
-                        @foreach ($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->label }}</option>
-                        @endforeach
+                        <!-- UNDEFINED TYPES
+                                    foreach ($types as $type)
+                                        <option value="{ $type->id }">{ $type->label }</option>
+                                    endforeach -->
                     </select>
                 </div>
 
@@ -47,11 +48,7 @@
                     @endforeach
                 </div>
 
-                @error('technologies')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+
 
                 <div class="col-12">
                     <label class="form-label" for="git-link">Git Link</label>
